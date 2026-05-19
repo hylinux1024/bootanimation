@@ -52,11 +52,10 @@ export async function generateBootanimationZip(
   const descContent = generateDesc(config);
   zip.file('desc.txt', descContent);
 
-  // Generate zip blob with DEFLATE compression (level 9 = max)
+  // Android requires STORE (no compression), equivalent to zip -0
   const blob = await zip.generateAsync({
     type: 'blob',
-    compression: 'DEFLATE',
-    compressionOptions: { level: 9 },
+    compression: 'STORE',
   });
   return blob;
 }
