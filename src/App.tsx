@@ -26,7 +26,7 @@ function App() {
   const [customW, setCustomW] = useState(1920);
   const [customH, setCustomH] = useState(1080);
   const [fps, setFps] = useState(15);
-  const [singlePart, setSinglePart] = useState(true);
+  const [singlePart, setSinglePart] = useState(false);
   const [format, setFormat] = useState<ImageFormat>('jpeg');
   const [jpegQuality, setJpegQuality] = useState(0.7);
   const [frameSkip, setFrameSkip] = useState(1);

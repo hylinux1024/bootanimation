@@ -37,8 +37,9 @@ export async function generateBootanimationZip(
     part0Folder.file(filename, blob);
   }
 
-  // Process part1 (if not single part)
-  if (!config.singlePart && splitIndex < sampled.length) {
+  // Process part1 (if not single part and has remaining frames)
+  const hasPart1 = !config.singlePart && splitIndex < sampled.length;
+  if (hasPart1) {
     const part1Folder = zip.folder('part1')!;
     for (let i = splitIndex; i < sampled.length; i++) {
       onProgress?.('part1', i - splitIndex + 1, sampled.length - splitIndex);
@@ -48,8 +49,8 @@ export async function generateBootanimationZip(
     }
   }
 
-  // Add desc.txt
-  const descContent = generateDesc(config);
+  // Add desc.txt (only include part1 when it has frames)
+  const descContent = generateDesc(config, hasPart1);
   zip.file('desc.txt', descContent);
 
   // Android requires STORE (no compression), equivalent to zip -0

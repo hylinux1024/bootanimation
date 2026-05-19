@@ -7,20 +7,18 @@ import type { BootanimationConfig } from './types';
  *   <width> <height> <fps>
  *   p <loop> <pause> <folder>
  *
- * For single part: part0 loops forever (loop=0)
- * For two parts: part0 loops forever, part1 plays once (loop=1)
+ * part0: loops forever (loop=0)
+ * part1: plays once (loop=1), only included when hasPart1=true
  */
-export function generateDesc(config: BootanimationConfig): string {
+export function generateDesc(config: BootanimationConfig, hasPart1 = false): string {
   const { width, height, fps } = config;
 
   const lines: string[] = [
     `${width} ${height} ${fps}`,
+    'p 0 0 part0',
   ];
 
-  if (config.singlePart) {
-    lines.push('p 0 0 part0');
-  } else {
-    lines.push('p 0 0 part0');
+  if (hasPart1) {
     lines.push('p 1 0 part1');
   }
 
